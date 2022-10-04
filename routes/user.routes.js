@@ -10,15 +10,15 @@ const {
   getUserProducts,
 } = require("../controllers/users.controller");
 
-const { userExists, orderExists } = require("../middlewares/userMiddlewares");
+const { userExists, orderExists } = require("../middlewares/user.middlewares");
 const {
   protectSession,
   protectUsersAccount,
   checkUserRole, //pendiente
   protectUsersOrders,
-} = require("../middlewares/authMiddlewares");
+} = require("../middlewares/auth.middlewares");
 
-const { userValidator } = require("../middlewares/validatorsMiddlewares");
+const { userValidator } = require("../middlewares/validators.middlewares");
 
 const userRouter = express.Router();
 

@@ -1,4 +1,4 @@
-const { data, DataTypes } = require("../util/database.util");
+const { data, DataTypes } = require("../util/database.util")
 
 const ProductsInCart = data.define("productsInCart", {
   id: {
@@ -22,5 +22,5 @@ const ProductsInCart = data.define("productsInCart", {
     type: DataTypes.STRING,
     defaultValue: "active",
   },
-});
-module.exports = { ProductsInCart };
+})
+module.exports = { ProductsInCart }

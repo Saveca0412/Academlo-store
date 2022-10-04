@@ -1,59 +1,66 @@
-const express = require("express");
-
-const { protectSession } = require("../middlewares/authMiddlewares");
-
+const express = require("express")
+//Middleware
+const { protectSession } = require("../middlewares/auth.middlewares")
+const { validateDataProduct } = require("../middlewares/validators.middlewares")
+const {
+  checkProductExists,
+  checkProductOwner,
+  checkCategoryExists,
+} = require("../middlewares/product.middleware")
+//Controllers
 const {
   createProduct,
-  getAllProduct,
+  getAllProducts,
   getProductById,
   deleteProduct,
   updateProduct,
   getAllCategories,
   addCategory,
   updateCategory,
-} = require("../controllers/products.controller");
-const {
-  checkProductExists,
-  checkProductOwner,
-  checkCategoryExists,
-} = require("../middlewares/product.middleware");
-const {
+} = require("../controllers/products.controller")
+
+//Utils
+const { upload } = require("../util/multer.util")
+//Routes
+const productRouter = express.Router()
+
+productRouter.get("/", getAllProducts)
+
+productRouter.get("/categories", getAllCategories)
+
+productRouter.get("/:id", checkProductExists, getProductById)
+
+
+
+productRouter.use(protectSession)
+
+productRouter.post(
+  "/",
   validateDataProduct,
-} = require("../middlewares/validators.middlewares");
+  upload.array("productImg", 5),
+  createProduct
+)
 
-const productRouter = express.Router();
-
-productRouter.get("/", getAllProduct);
-
-productRouter.get("/:id", checkProductExists, getProductById);
-
-productRouter.get("/categories", getAllCategories);
-
-productRouter.use(protectSession);
-
-productRouter.post("/", validateDataProduct, createProduct);
-
-productRouter.post("/categories", addCategory);
+productRouter.post("/categories", addCategory)
 
 productRouter.patch(
   "/:id",
   checkProductExists,
   checkProductOwner,
   updateProduct
-);
+)
 
 productRouter.patch(
   "/categories/:id",
   checkCategoryExists,
-  checkProductOwner,
   updateCategory
-);
+)
 
 productRouter.delete(
   "/:id",
   checkProductExists,
   checkProductOwner,
   deleteProduct
-);
+)
 
-module.exports = { productRouter };
+module.exports = { productRouter }

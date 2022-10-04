@@ -1,20 +1,20 @@
-const { body, validationResult } = require("express-validator");
+const { body, validationResult } = require("express-validator")
 
 const checkValidations = (req, res, next) => {
-  const errors = validationResult(req);
+  const errors = validationResult(req)
 
   if (!errors.isEmpty()) {
-    const errorMessages = errors.array().map(err => err.msg);
+    const errorMessages = errors.array().map((err) => err.msg)
 
-    const message = errorMessages.join(". ");
+    const message = errorMessages.join(". ")
 
     return res.status(400).json({
       status: "error",
       message,
-    });
+    })
   }
-  next();
-};
+  next()
+}
 
 const userValidator = [
   body("username")
@@ -33,7 +33,7 @@ const userValidator = [
     .isLength({ min: 6, max: 6 })
     .withMessage("Password must be  6 characters"),
   checkValidations,
-];
+]
 const validateDataProduct = [
   body("title")
     .isString()
@@ -52,7 +52,7 @@ const validateDataProduct = [
     .withMessage("description must be a string")
     .notEmpty()
     .withMessage("description can not be empty")
-    .isLength({ min: 10 })
+    .isLength({ min: 10,max:200 })
     .withMessage("description must be at least 10 characters"),
   body("quantity")
     .isNumeric()
@@ -64,9 +64,9 @@ const validateDataProduct = [
     .withMessage("categoryId must be a number")
     .notEmpty()
     .withMessage("categoryId can not be empty"),
-];
+]
 
 module.exports = {
   userValidator,
   validateDataProduct,
-};
+}

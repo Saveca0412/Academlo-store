@@ -1,5 +1,5 @@
-const { Order } = require("../models/orderModels");
-const { User } = require("../models/userModels");
+const { Order } = require("../models/order.model");
+const { User } = require("../models/user.model");
 const { appError } = require("../util/appError.util");
 const { catchAsync } = require("../util/catchAsyncUtil");
 

@@ -7,8 +7,8 @@ const {
   deleteOrder,
 } = require("../controllers/orders.controller");
 
-const { protectSession } = require("../middlewares/authMw");
-const { checkOrder, checkOrderOwner } = require("../middlewares/ordersMw");
+const { protectSession } = require("../middlewares/auth.middlewares");
+const { checkOrder, checkOrderOwner } = require("../middlewares/orders.middlewares");
 
 const orderRouter = express.Router();
 

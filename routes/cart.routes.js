@@ -1,14 +1,18 @@
-const express = require("express");
+const express = require("express")
+//Middlewares
+const { protectSession } = require("../middlewares/auth.middlewares")
+const { checkCart, checkProductQuantity, protectCartOwner, checkProdExistsInCart } = require("../middlewares/cart.middleware")
 
-const { protectSession } = require("../middlewares/authMiddlewares");
+const { sendToCart, updateCart, removedProdCart,getAllProdInCart } = require("../controllers/cart.controller")
 
-const { sendToCart, updateCart } = require("../controllers/cart.controller");
 
-const cartRouter = express.Router();
+const cartRouter = express.Router()
 
-cartRouter.post("/add-product", sendToCart);
-cartRouter.post("purchase");
-cartRouter.patch("/update-cart", updateCart);
-cartRouter.delete("/:productId");
+cartRouter.use(protectSession)
 
-module.exports = { cartRouter };
+cartRouter.post("/add-product",checkCart)//checkProdExistsInCart,checkProductQuantity,sendToCart
+cartRouter.patch("/update-cart",protectCartOwner,checkProductQuantity, updateCart)
+cartRouter.delete("/:productId",protectCartOwner,removedProdCart)
+cartRouter.get("/purchase",protectCartOwner,getAllProdInCart)
+
+module.exports = { cartRouter }

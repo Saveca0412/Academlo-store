@@ -1,20 +1,25 @@
 const { data, DataTypes } = require("../util/database.util");
 
-const Category = data.define("categories", {
+const ProductImg = data.define("productsImgs", {
   id: {
-    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
+    type: DataTypes.INTEGER,
   },
-  name: {
-    type: DataTypes.STRING,
+  imgUrl: {
     allowNull: false,
+    type: DataTypes.STRING,
+  },
+  productId: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
   },
   status: {
+    allowNull: false,
     type: DataTypes.STRING,
     defaultValue: "active",
   },
 });
 
-module.exports = { Category };
+module.exports = { ProductImg };

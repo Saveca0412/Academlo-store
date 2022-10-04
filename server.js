@@ -1,6 +1,6 @@
 const dotenv = require("dotenv").config();
 const { app } = require("./app");
-const { initModels } = require("./models/initModels");
+const { initModels } = require("./models/init.models");
 
 const { data } = require("./util/database.util");
 
@@ -11,7 +11,7 @@ const startServer = async () => {
     initModels();
     await data.sync();
     console.log("Datos sincronizados");
-    const PORT = 4001;
+    const PORT = 4080;
     app.listen(PORT, () => {
       console.log("Aplicación lista y a la escucha!");
     });
